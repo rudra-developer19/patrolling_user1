@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "139996142785",
+    "project_id": "patrol-user-auth",
+    "storage_bucket": "patrol-user-auth.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:139996142785:android:549ceb763f5d23469ac840",
+        "android_client_info": {
+          "package_name": "com.example.patrol_user1"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAsPdodTu4Puuz5ztbx-f2nHKyfY0x0Zfo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
