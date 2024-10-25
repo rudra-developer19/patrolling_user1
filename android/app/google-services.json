@@ -1,0 +1,49 @@
+{
+  "project_info": {
+    "project_number": "818944550378",
+    "firebase_url": "https://patrolgps-84fb2-default-rtdb.firebaseio.com",
+    "project_id": "patrolgps-84fb2",
+    "storage_bucket": "patrolgps-84fb2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:818944550378:android:1d83ffdc5b185c433cfe93",
+        "android_client_info": {
+          "package_name": "com.example.petroling_team"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDUfHUaCmzWgReENSC99T2s9TFnPHQ4oHA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:818944550378:android:98b92e6a0f7154793cfe93",
+        "android_client_info": {
+          "package_name": "com.example.patrol_user1"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDUfHUaCmzWgReENSC99T2s9TFnPHQ4oHA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
