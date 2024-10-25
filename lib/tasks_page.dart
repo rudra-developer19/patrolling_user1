@@ -55,7 +55,7 @@ class _TasksPageState extends State<TasksPage> {
                       style: TextStyle(
                         fontSize: 22,
                         fontWeight: FontWeight.bold,
-                        color: Colors.blueAccent,
+                        color: Colors.black,
                       ),
                     ),
                     SizedBox(height: 10),
@@ -63,9 +63,10 @@ class _TasksPageState extends State<TasksPage> {
                       controller: _noteController,
                       decoration: InputDecoration(
                         labelText: 'Write a note',
+                        labelStyle: TextStyle(color: Colors.black),
                         border: OutlineInputBorder(),
                         focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.blueAccent, width: 2.0),
+                          borderSide: BorderSide(color: Colors.black, width: 2.0),
                         ),
                       ),
                       maxLines: 3,
@@ -73,18 +74,18 @@ class _TasksPageState extends State<TasksPage> {
                     SizedBox(height: 20),
                     ElevatedButton(
                       onPressed: _openCamera,
-                      child: Text('Open Camera'),
+                      child: Text('Open Camera', style: TextStyle(color: Colors.white)),
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.blueAccent, // Changed from primary to backgroundColor
+                        backgroundColor: Colors.black,
                         padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
                       ),
                     ),
                     SizedBox(height: 10),
                     ElevatedButton(
-                      onPressed: () => _submitTask(task),
-                      child: Text('Submit Task'),
+                      onPressed: () => _showSubmitConfirmationDialog(task),
+                      child: Text('Submit Task', style: TextStyle(color: Colors.white)),
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.green, // Changed from primary to backgroundColor
+                        backgroundColor: Colors.black,
                         padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
                       ),
                     ),
@@ -105,8 +106,64 @@ class _TasksPageState extends State<TasksPage> {
     });
   }
 
+  void _showSubmitConfirmationDialog(PatrolTask task) {
+    // Show confirmation dialog before submitting the task
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Confirm Submission', style: TextStyle(color: Colors.black)),
+          content: Text('Do you want to submit this task or add more details?', style: TextStyle(color: Colors.black)),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.pop(context); // Dismiss the dialog
+              },
+              child: Text('Add More', style: TextStyle(color: Colors.black)),
+            ),
+            TextButton(
+              onPressed: () {
+                Navigator.pop(context); // Close the confirmation dialog
+                _showFinalSubmitDialog(task); // Show final confirmation dialog
+              },
+              child: Text('Submit', style: TextStyle(color: Colors.black)),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  void _showFinalSubmitDialog(PatrolTask task) {
+    // Show a final dialog before submission
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Final Confirmation', style: TextStyle(color: Colors.black)),
+          content: Text('Are you sure you want to submit the task?', style: TextStyle(color: Colors.black)),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.pop(context); // Close the dialog
+              },
+              child: Text('Cancel', style: TextStyle(color: Colors.black)),
+            ),
+            TextButton(
+              onPressed: () {
+                Navigator.pop(context); // Close the final confirmation dialog
+                _submitTask(task); // Proceed with task submission
+              },
+              child: Text('Yes, Submit', style: TextStyle(color: Colors.black)),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   Future<void> _submitTask(PatrolTask task) async {
-    if (_capturedImage != null) {
+    if (_capturedImage != null && _noteController.text.isNotEmpty) {
       String fileName = _capturedImage!.name;
       File imageFile = File(_capturedImage!.path);
 
@@ -135,6 +192,9 @@ class _TasksPageState extends State<TasksPage> {
       } catch (e) {
         print("Error uploading image or submitting task: $e");
       }
+    } else {
+      // Show error if no photo or note is provided
+      _showErrorDialog('Please add a note and take a photo before submitting.');
     }
   }
 
@@ -164,9 +224,30 @@ class _TasksPageState extends State<TasksPage> {
     );
 
     // Close the dialog after a short delay
-    Future.delayed(Duration(seconds: 2), () {
+    Future.delayed(Duration(seconds: 1), () {
       Navigator.of(context).pop(); // Close the tick animation dialog
     });
+  }
+
+  void _showErrorDialog(String message) {
+    // Display an error dialog if submission criteria are not met
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Error', style: TextStyle(color: Colors.black)),
+          content: Text(message, style: TextStyle(color: Colors.black)),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: Text('OK', style: TextStyle(color: Colors.black)),
+            ),
+          ],
+        );
+      },
+    );
   }
 
   @override
@@ -174,7 +255,7 @@ class _TasksPageState extends State<TasksPage> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Tasks', style: TextStyle(color: Colors.white)),
-        backgroundColor: Colors.blueAccent,
+        backgroundColor: Colors.black,
       ),
       body: FutureBuilder<List<PatrolTask>>(
         future: _fetchTasks(),
@@ -184,7 +265,7 @@ class _TasksPageState extends State<TasksPage> {
           } else if (snapshot.hasError) {
             return Center(child: Text('Error: ${snapshot.error}'));
           } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-            return Center(child: Text('No tasks available.'));
+            return Center(child: Text('No tasks available.', style: TextStyle(color: Colors.black)));
           }
 
           List<PatrolTask> tasks = snapshot.data!;
@@ -193,6 +274,7 @@ class _TasksPageState extends State<TasksPage> {
             itemBuilder: (context, index) {
               PatrolTask task = tasks[index];
               return Card(
+                color: Colors.white,
                 margin: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
                 elevation: 4,
                 shape: RoundedRectangleBorder(
@@ -202,11 +284,11 @@ class _TasksPageState extends State<TasksPage> {
                   contentPadding: EdgeInsets.all(16.0),
                   title: Text(
                     task.title,
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.black),
                   ),
                   subtitle: Text(
                     task.description,
-                    style: TextStyle(color: Colors.grey[600]),
+                    style: TextStyle(color: Colors.black54),
                   ),
                   trailing: Row(
                     mainAxisSize: MainAxisSize.min,
@@ -217,9 +299,9 @@ class _TasksPageState extends State<TasksPage> {
                         onPressed: task.status == 'pending'
                             ? () => _showStartTaskDialog(task)
                             : null, // Disable button if task is completed
-                        child: Text('Start Task'),
+                        child: Text('Start Task', style: TextStyle(color: Colors.white)),
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.blueAccent, // Changed from primary to backgroundColor
+                          backgroundColor: Colors.black, // Changed to black
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10.0),
                           ),
@@ -236,27 +318,38 @@ class _TasksPageState extends State<TasksPage> {
     );
   }
 
-  Widget _buildStatusIndicator(String status) {
-    Color indicatorColor;
-
-    if (status == 'pending') {
-      indicatorColor = Colors.red;
-    } else {
-      indicatorColor = Colors.green; // Change this if you have different statuses
-    }
-
-    return CircleAvatar(
-      radius: 10,
-      backgroundColor: indicatorColor,
-    );
-  }
-
   Future<List<PatrolTask>> _fetchTasks() async {
-    await Future.delayed(Duration(seconds: 1));
+    // Mocked task data (in real use, fetch from Firebase or API)
+    await Future.delayed(Duration(seconds: 2));
     return [
       PatrolTask(id: '1', title: 'Task 1', description: 'Description for task 1', status: 'pending'),
-      PatrolTask(id: '2', title: 'Task 2', description: 'Description for task 2', status: 'completed'),
+      PatrolTask(id: '2', title: 'Task 2', description: 'Description for task 2', status: 'pending'),
       PatrolTask(id: '3', title: 'Task 3', description: 'Description for task 3', status: 'pending'),
     ];
+  }
+
+  Widget _buildStatusIndicator(String status) {
+    Color color;
+    IconData icon;
+
+    switch (status) {
+      case 'pending':
+        color = Colors.black;
+        icon = Icons.hourglass_empty;
+        break;
+      case 'completed':
+        color = Colors.black;
+        icon = Icons.check_circle;
+        break;
+      default:
+        color = Colors.black;
+        icon = Icons.help;
+    }
+
+    return Icon(
+      icon,
+      color: color,
+      size: 28.0,
+    );
   }
 }

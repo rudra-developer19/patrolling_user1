@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="default_web_client_id">YOUR_DEFAULT_WEB_CLIENT_ID</string>
-    <string name="firebase_database_url">https://elpoirfbd-default-rtdb.firebaseio.com</string>
-    <string name="gcm_defaultSenderId">139996142785</string>
-    <string name="google_api_key">AIzaSyAsPdodTu4Puuz5ztbx-f2nHKyfY0x0Zfo</string>
-    <string name="google_app_id">1:139996142785:android:549ceb763f5d23469ac840</string>
-    <string name="project_id">patrol-user-auth</string>
-    <string name="google_storage_bucket">patrol-user-auth.appspot.com</string>
+    <string name="firebase_database_url">https://patrolgps-84fb2-default-rtdb.firebaseio.com</string>
+    <string name="gcm_defaultSenderId">818944550378</string>
+    <string name="google_api_key">AIzaSyDUfHUaCmzWgReENSC99T2s9TFnPHQ4oHA</string>
+    <string name="google_app_id">1:818944550378:android:1d83ffdc5b185c433cfe93</string>
+    <string name="project_id">patrolgps-84fb2</string>
+    <string name="google_storage_bucket">patrolgps-84fb2.appspot.com</string>
 </resources>

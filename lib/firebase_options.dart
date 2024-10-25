@@ -40,11 +40,11 @@ class DefaultFirebaseOptions {
 
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyAsPdodTu4Puuz5ztbx-f2nHKyfY0x0Zfo',
-    appId: '1:139996142785:android:549ceb763f5d23469ac840',
-    messagingSenderId: '139996142785',
-    projectId: 'patrol-user-auth',
-    storageBucket: 'patrol-user-auth.appspot.com',
+    apiKey: 'AIzaSyDUfHUaCmzWgReENSC99T2s9TFnPHQ4oHA',
+    appId: '1:818944550378:android:1d83ffdc5b185c433cfe93',
+    messagingSenderId: '818944550378',
+    projectId: 'patrolgps-84fb2',
+    storageBucket: 'patrolgps-84fb2.appspot.com',
   );
 
 
